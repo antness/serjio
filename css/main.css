@@ -281,14 +281,15 @@ textarea {
 .robot {
   width: 25px;
   height: 25px;
-  border-width: medium;
+  border-width: 5px;
   border-style: dashed;
   border-color: #00849f;
   display: block;
   position: absolute;
-  margin-left: -2px;
-  margin-top: -2px;
+  margin-left: -4px;
+  margin-top: -4px;
   background-color: transparent;
+  z-index: 999;
 }
 
 #grid {
@@ -310,4 +311,9 @@ textarea {
 button:disabled, #go:disabled {
   background-color: #d2d2d2;
   color: #939393;
+}
+
+h1 {
+  background-color: black;
+  color: white;
 }

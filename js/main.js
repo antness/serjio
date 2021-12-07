@@ -64,7 +64,7 @@ Robot.prototype.go = async function (xOffset, yOffset) {
       left: (this.x * cellSize.w)+"px",
       top: (this.y * cellSize.h)+"px",
     },
-  ], {direction: "normal", iterations: 1, duration: 500, fill: "forwards", easing: "ease-out"}).finished;
+  ], {direction: "normal", iterations: 1, duration: 300, fill: "forwards", easing: "ease-out"}).finished;
 };
 
 Robot.prototype.flyTo = async function (x, y) {
@@ -213,7 +213,7 @@ Grid.prototype.reset = function () {
       promises.push(prom);
     }
   }
-  console.log(promises.length);
+
   return Promise.all(promises);
 }
 
@@ -221,13 +221,11 @@ Grid.prototype.randomize = function () {
   var promises = [];
 
   for(var x = 0; x < this.w; x++) {
-    var cell = this.getCell(x, 3);
-    if(Math.random() < 0.3) {
-      promises.push(cell.setMark(true));
+    for(var y = 0; y < this.h; y++) {
+      var cell = this.getCell(x, y);
+      promises.push(cell.setMark(y === 3 && Math.random() < 0.3));
     }
   }
-
-  console.log(promises.length);
 
   return Promise.all(promises);
 }
@@ -255,16 +253,97 @@ window.addEventListener("load", async function () {
     grid.reset();
   })
   document.querySelector("#random").addEventListener("click", async (a) => {
-    await grid.reset();
     await grid.randomize();
   })
+
+  var goCounter = 0;
   document.querySelector("#go").addEventListener("click", async (ev) => {
     ev.target.disabled = true;
+    goCounter++;
+    if(goCounter === 2) {
+      setTimeout(joke, 5000);
+    }
     await robot.run();
-    console.log("done")
     ev.target.disabled = false;
   })
-
-
-
 });
+
+
+function joke() {
+  document.querySelector("body").animate(
+    [
+      {offset:0, transform: "translate(0, 0)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {transform: "translate(-0.5%, -0.5%)"},
+      {transform: "translate(0.4%, 0.4%)"},
+      {offset:0.05, transform: "rotate(-1deg)", },
+      {offset:0.18, transform: "rotate(-1deg)", },
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {transform: "rotate(-2deg)"},
+      {transform: "rotate(-1deg)"},
+      {offset:0.21, transform: "rotate(-2deg)"},
+      {offset:0.22, transform: "translate(1%, 1%) rotate(-7deg)", },
+      {offset:0.39, transform: "translate(1%, 1%) rotate(-7deg)", easing: "ease-out"},
+      {offset:0.42, transform: "translate(0, 0) rotate(-180deg)", easing: "ease-out"},
+      {offset:0.95, transform: "translate(0, 0) rotate(-180deg)", easing: "ease-out"},
+      {offset:1, transform: "translate(0, 0) rotate(-360deg)", easing: "ease-out"},
+    ], {
+      duration: 30000,
+    }
+  );
+}
