@@ -307,6 +307,7 @@ textarea {
   background-color: red;
   color: white;
   text-shadow: gray;
+  transition-duration: 1s;
 }
 
 button:disabled, #go:disabled {
@@ -317,4 +318,21 @@ button:disabled, #go:disabled {
 h1 {
   background-color: black;
   color: white;
+  user-select: none;
+}
+
+h1.prank {
+  color: white;
+}
+
+h1 .robot-o {
+  color: white;
+  transition-duration: 2s;
+  transition-timing-function: ease-in-out;
+}
+
+h1.prank .robot-o {
+  color: red;
+  transition-duration: 2s;
+  transition-timing-function: ease-in-out;
 }

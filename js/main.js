@@ -261,16 +261,34 @@ window.addEventListener("load", async function () {
     ev.target.disabled = true;
     goCounter++;
     if(goCounter === 2) {
-      setTimeout(joke, 5000);
+      setTimeout(prank, 5000);
     }
     await robot.run();
     ev.target.disabled = false;
   })
+
+  var robotClickCounter = 0;
+  document.querySelector("h1").addEventListener("click", async (ev) => {
+    robotClickCounter++;
+    if(robotClickCounter%7 === 0) {
+      ev.target.classList.add("prank")
+      setTimeout(async function (){
+        await prank();
+        if(!prankRunning){
+          ev.target.classList.remove("prank")
+        }
+      }, 5000);
+    }
+  });
 });
 
+var prankRunning = false;
 
-function joke() {
-  document.querySelector("body").animate(
+async function prank() {
+  if(prankRunning) return;
+  prankRunning = true;
+
+  await document.querySelector("body").animate(
     [
       {offset:0, transform: "translate(0, 0)"},
       {transform: "translate(-0.5%, -0.5%)"},
@@ -345,5 +363,7 @@ function joke() {
     ], {
       duration: 30000,
     }
-  );
+  ).finished;
+
+  prankRunning = false;
 }
