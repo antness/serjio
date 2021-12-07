@@ -295,7 +295,8 @@ textarea {
 #grid {
   border: black thin dashed;
   position: relative;
-  height: 190px;
+  height: 185px;
+  padding: 10px;
 }
 
 #grid.content{
